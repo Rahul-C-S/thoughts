@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:thoughts/app/config/theme/app_theme.dart';
 import 'package:thoughts/app/di/injection_container.dart';
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.theme,
       getPages: AppRoutes.routes,
       initialRoute: RouteNames.home,
+      navigatorKey: Get.key,
       debugShowCheckedModeBanner: false,
     );
   }

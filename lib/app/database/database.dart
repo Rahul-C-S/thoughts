@@ -17,7 +17,7 @@ class Database {
 
   // Web options
   WebOptions get _webOptions =>
-      WebOptions(dbName: 'secureStorage', publicKey: 'app_default_key');
+      WebOptions(dbName: 'secureStorage', publicKey: 'thoughts_key');
 
   // Singleton pattern
   factory Database() => _instance;
@@ -111,7 +111,7 @@ class Database {
 
     // Add metadata - ID and timestamps
     final DateTime now = DateTime.now();
-    final String timestamp = now.toIso8601String();
+    final int timestamp = now.millisecondsSinceEpoch;
 
     // Create a new map with all the required fields
     final Map<String, dynamic> fullData = {
@@ -164,7 +164,7 @@ class Database {
     }
 
     // Update with new data and timestamp
-    final String timestamp = DateTime.now().toIso8601String();
+    final int timestamp = DateTime.now().millisecondsSinceEpoch;
 
     // Create updated item preserving id and created_at
     collection[index] = {

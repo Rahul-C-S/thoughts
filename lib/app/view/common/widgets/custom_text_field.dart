@@ -30,8 +30,44 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (expands) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: TextFormField(
+              controller: controller,
+              obscureText: obscureText,
+              keyboardType: keyboardType,
+              validator: validator,
+              maxLines: null,
+              minLines: null,
+              expands: true,
+              maxLength: maxLength,
+              textAlignVertical: TextAlignVertical.top,
+              decoration: InputDecoration(
+                hintText: hint,
+                prefixIcon:
+                    prefixIcon != null
+                        ? Icon(prefixIcon, color: Colors.grey)
+                        : null,
+                counterText: maxLength != null ? '' : null,
+                
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           label,
@@ -45,8 +81,9 @@ class CustomTextField extends StatelessWidget {
           validator: validator,
           maxLines: obscureText ? 1 : maxLines,
           minLines: obscureText ? 1 : minLines,
-          expands: expands,
+          expands: false,
           maxLength: maxLength,
+          textAlignVertical: TextAlignVertical.top,
           decoration: InputDecoration(
             hintText: hint,
             prefixIcon:

@@ -1,18 +1,16 @@
 import 'dart:convert';
 
-class UserModel {
+class NoteModel {
   final String id;
-  final String name;
-  final String email;
-  final String password;
+  final String title;
+  final String note;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  UserModel({
+  NoteModel({
     required this.id,
-    required this.name,
-    required this.email,
-    required this.password,
+    required this.title,
+    required this.note,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -20,20 +18,18 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'name': name,
-      'email': email,
-      'password': password,
+      'title': title,
+      'note': note,
       'created_at': createdAt.millisecondsSinceEpoch,
       'updated_at': updatedAt.millisecondsSinceEpoch,
     };
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
+  factory NoteModel.fromMap(Map<String, dynamic> map) {
+    return NoteModel(
       id: map['id'] as String,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      password: map['password'] as String,
+      title: map['title'] as String,
+      note: map['note'] as String,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at'] as int),
     );
@@ -41,6 +37,6 @@ class UserModel {
 
   String toJson() => json.encode(toMap());
 
-  factory UserModel.fromJson(String source) =>
-      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory NoteModel.fromJson(String source) =>
+      NoteModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
