@@ -80,7 +80,7 @@ class AddEditNoteModal extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 600, minHeight: 300),
+                  constraints: BoxConstraints(maxHeight: 500, minHeight: 200),
                   child: CustomTextField(
                     label: 'Content',
                     hint: 'Enter note content',

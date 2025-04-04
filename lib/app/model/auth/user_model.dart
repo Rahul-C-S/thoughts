@@ -34,8 +34,8 @@ class UserModel {
       name: map['name'] as String,
       email: map['email'] as String,
       password: map['password'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at'] as int),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at'] is int ? map['created_at'] : int.parse(map['created_at'])),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at'] is int ? map['updated_at'] : int.parse(map['updated_at'])),
     );
   }
 

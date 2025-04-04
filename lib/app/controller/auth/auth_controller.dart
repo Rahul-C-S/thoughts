@@ -114,13 +114,15 @@ class AuthController extends GetxController {
     } catch (e, s) {
       Get.snackbar(
         'Error',
-        e.toString(),
+        'Please signup!',
         backgroundColor: AppColors.error,
         duration: Duration(seconds: 3),
         snackPosition: SnackPosition.BOTTOM,
       );
 
       debugPrint(s.toString());
+      _db.deleteAll();
+      Get.offNamed(RouteNames.signup);
     }
   }
 }

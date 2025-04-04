@@ -30,8 +30,16 @@ class NoteModel {
       id: map['id'] as String,
       title: map['title'] as String,
       note: map['note'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at'] as int),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+        map['created_at'] is int
+            ? map['created_at'] as int
+            : int.parse(map['created_at']),
+      ),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        map['updated_at'] is int
+            ? map['updated_at'] as int
+            : int.parse(map['updated_at']),
+      ),
     );
   }
 
