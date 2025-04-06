@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thoughts/app/config/routes/route_names.dart';
-import 'package:thoughts/app/config/theme/app_colors.dart';
 import 'package:thoughts/app/database/db_constants.dart';
 import 'package:thoughts/app/model/auth/user_model.dart';
 import 'package:thoughts/app/database/database.dart';
+import 'package:thoughts/app/utils/snackbar.dart';
 
 class AuthController extends GetxController {
   final RxBool isAuthenticated = false.obs;
@@ -22,12 +22,9 @@ class AuthController extends GetxController {
       final userList = await _db.readAll(DbConstants.userCollection);
       if (userList.isEmpty) {
         if (Get.context != null && Get.isSnackbarOpen == false) {
-          Get.snackbar(
-            'No account found!',
-            'Please create account!',
-            backgroundColor: AppColors.info,
-            duration: const Duration(seconds: 3),
-            snackPosition: SnackPosition.BOTTOM,
+          showSnackbar(
+            title: 'No account found!',
+            message: 'Please create account!',
           );
         }
         await Future.delayed(const Duration(milliseconds: 100));
@@ -36,12 +33,10 @@ class AuthController extends GetxController {
     } catch (e) {
       debugPrint('Error checking user: ${e.toString()}');
       if (Get.context != null && Get.isSnackbarOpen == false) {
-        Get.snackbar(
-          'Error',
-          'Failed to check user data',
-          backgroundColor: AppColors.error,
-          duration: const Duration(seconds: 3),
-          snackPosition: SnackPosition.BOTTOM,
+        showSnackbar(
+          title: 'Error',
+          message: 'Failed to check user data',
+          type: SnackbarType.error,
         );
       }
     }
@@ -63,22 +58,19 @@ class AuthController extends GetxController {
       authUser.value = UserModel.fromMap(userMap);
       isAuthenticated.value = true;
       debugPrint('User created: ${userMap.toString()}');
-      Get.snackbar(
-        'Success',
-        'Account has been created!',
-        backgroundColor: AppColors.success,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+
+      showSnackbar(
+        title: 'Success',
+        message: 'Account has been created!',
+        type: SnackbarType.success,
       );
       Get.offNamedUntil(RouteNames.home, (route) => false);
     } catch (e, s) {
       debugPrint(s.toString());
-      Get.snackbar(
-        'Error',
-        'Failed to signup!',
-        backgroundColor: AppColors.error,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+      showSnackbar(
+        title: 'Error',
+        message: 'Failed to signup!',
+        type: SnackbarType.error,
       );
     }
   }
@@ -91,35 +83,28 @@ class AuthController extends GetxController {
         // Auth successful
         isAuthenticated.value = true;
         authUser.value = UserModel.fromMap(userMap);
-        Get.snackbar(
-          'Success',
-          'Login success!',
-          backgroundColor: AppColors.success,
-          duration: Duration(seconds: 3),
-          snackPosition: SnackPosition.BOTTOM,
+        showSnackbar(
+          title: 'Success',
+          message: 'Login success!',
+          type: SnackbarType.success,
         );
         Get.offNamedUntil(RouteNames.home, (route) => false);
         return;
       } else {
         // Auth failure
-        Get.snackbar(
-          'Error',
-          'password doesn\'t match!',
-          backgroundColor: AppColors.error,
-          duration: Duration(seconds: 3),
-          snackPosition: SnackPosition.BOTTOM,
+        showSnackbar(
+          title: 'Error',
+          message: 'password doesn\'t match!',
+          type: SnackbarType.error,
         );
         return;
       }
     } catch (e, s) {
-      Get.snackbar(
-        'Error',
-        'Please signup!',
-        backgroundColor: AppColors.error,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+      showSnackbar(
+        title: 'Error',
+        message: 'Please signup!',
+        type: SnackbarType.error,
       );
-
       debugPrint(s.toString());
       _db.deleteAll();
       Get.offNamed(RouteNames.signup);

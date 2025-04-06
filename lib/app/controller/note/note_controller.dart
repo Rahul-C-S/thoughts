@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thoughts/app/config/theme/app_colors.dart';
 import 'package:thoughts/app/database/database.dart';
 import 'package:thoughts/app/database/db_constants.dart';
 import 'package:thoughts/app/model/note/note_model.dart';
+import 'package:thoughts/app/utils/snackbar.dart';
 
 class NoteController extends GetxController {
   final Database _database = Get.find();
@@ -28,21 +28,17 @@ class NoteController extends GetxController {
         DbConstants.note: note,
       });
 
-      Get.snackbar(
-        'Success',
-        'Note has been created!',
-        backgroundColor: AppColors.success,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+      showSnackbar(
+        title: 'Success',
+        message: 'Note has been saved!',
+        type: SnackbarType.success,
       );
       _fetchNotes();
     } catch (e, s) {
-      Get.snackbar(
-        'Error',
-        'Unable to create note!',
-        backgroundColor: AppColors.error,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+      showSnackbar(
+        title: 'Error',
+        message: 'Unable to create note!',
+        type: SnackbarType.error,
       );
       debugPrint(s.toString());
     }
@@ -59,21 +55,17 @@ class NoteController extends GetxController {
         DbConstants.note: note,
       });
 
-      Get.snackbar(
-        'Success',
-        'Note has been updated!',
-        backgroundColor: AppColors.success,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+      showSnackbar(
+        title: 'Success',
+        message: 'Note has been updated!',
+        type: SnackbarType.success,
       );
       _fetchNotes();
     } catch (e, s) {
-      Get.snackbar(
-        'Error',
-        'Unable to update note!',
-        backgroundColor: AppColors.error,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+      showSnackbar(
+        title: 'Error',
+        message: 'Unable to update note!',
+        type: SnackbarType.error,
       );
       debugPrint(s.toString());
     }
@@ -82,21 +74,17 @@ class NoteController extends GetxController {
   Future<void> deleteNote({required String id}) async {
     try {
       await _database.delete(DbConstants.noteCollection, id);
-      Get.snackbar(
-        'Success',
-        'Note has been deleted!',
-        backgroundColor: AppColors.success,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+      showSnackbar(
+        title: 'Success',
+        message: 'Note has been deleted!',
+        type: SnackbarType.success,
       );
       _fetchNotes();
     } catch (e, s) {
-      Get.snackbar(
-        'Error',
-        'Unable to delete note!',
-        backgroundColor: AppColors.error,
-        duration: Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
+      showSnackbar(
+        title: 'Error',
+        message: 'Unable to delete note!',
+        type: SnackbarType.error,
       );
       debugPrint(s.toString());
     }

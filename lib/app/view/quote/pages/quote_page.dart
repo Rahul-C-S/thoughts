@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:thoughts/app/config/theme/app_colors.dart';
 import 'package:thoughts/app/controller/quote/quote_controller.dart';
 import 'package:thoughts/app/model/quote/quote_model.dart';
+import 'package:thoughts/app/view/common/widgets/loader.dart';
 
 class QuotesPage extends StatelessWidget {
   QuotesPage({super.key});
@@ -36,7 +37,7 @@ class QuotesPage extends StatelessWidget {
         () => SafeArea(
           child:
               _controller.isLoading.value
-                  ? const Center(child: CircularProgressIndicator())
+                  ? const Center(child: Loader())
                   : _buildContent(constraints, orientation),
         ),
       );
